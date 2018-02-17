@@ -2,7 +2,7 @@ package com.jiniguez.school.config;
 
 public final class Constants {
 
-	public Constants() {
+	private Constants() {
 		throw new UnsupportedOperationException();
 	}
 	public static final Integer DEFAULT_PAGE = 0;
