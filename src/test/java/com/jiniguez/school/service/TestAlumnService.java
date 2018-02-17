@@ -90,7 +90,7 @@ public class TestAlumnService {
 			.thenReturn(ITERABLE_ALUMN);
 		final List<AlumnDTO> findAll = alumnService.findAll(Constants.DEFAULT_PAGE, Constants.DEFAULT_SIZE);
 		
-		Assert.assertEquals(findAll.size(), 1);
+		Assert.assertEquals(1, findAll.size());
 		assertEquals(ALUMN_DTO,findAll.get(0));
 	}
 	@Test
@@ -99,7 +99,7 @@ public class TestAlumnService {
 			.thenReturn(ITERABLE_ALUMN);
 		final List<AlumnDTO> findAll = alumnService.findAll(null, null);
 
-		Assert.assertEquals(findAll.size(), 1);
+		Assert.assertEquals(1, findAll.size());
 		assertEquals(ALUMN_DTO, findAll.get(0));
 	}
 	@Test

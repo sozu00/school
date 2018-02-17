@@ -71,7 +71,7 @@ public class TestAlumnController {
 		
 		mockMvc.perform(get("/alumn"));
 
-		Assert.assertEquals(findAll.size(), 1);
+		Assert.assertEquals(1 , findAll.size());
 		assertEquals(ALUMN_DTO, findAll.get(0));
 	}
 	@Test
@@ -81,7 +81,7 @@ public class TestAlumnController {
 
 		mockMvc.perform(get("/alumn"));
 
-		Assert.assertEquals(findAll.size(), 1);
+		Assert.assertEquals(1, findAll.size());
 		assertEquals(ALUMN_DTO, findAll.get(0));
 	}
 	
@@ -122,7 +122,7 @@ public class TestAlumnController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");    
 		mockMvc.perform(get("/alumn/date/"+sdf.format(BIRTHDATE)));
 
-		Assert.assertEquals(finByDate.size(), 1);
+		Assert.assertEquals(1, finByDate.size());
 		assertEquals(ALUMN_DTO, finByDate.get(0));
 	}
 	@Test
