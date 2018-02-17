@@ -73,14 +73,14 @@ public class TestAlumnService {
 	@Test
 	public void testBaseToModel() {
 		Alumn a = alumnService.toModel(ALUMN_DTO);
-		assertEquals(a, ALUMN);
+		assertEquals(ALUMN, a);
 	}
 	
 //	toDTO
 	@Test
 	public void testBaseToDTO() {
 		AlumnDTO a = alumnService.toDTO(ALUMN);
-		assertEquals(a, ALUMN_DTO);
+		assertEquals(ALUMN_DTO, a);
 	}
 	
 //	findAll
@@ -91,7 +91,7 @@ public class TestAlumnService {
 		final List<AlumnDTO> findAll = alumnService.findAll(Constants.DEFAULT_PAGE, Constants.DEFAULT_SIZE);
 		
 		Assert.assertEquals(findAll.size(), 1);
-		assertEquals(findAll.get(0), ALUMN_DTO);
+		assertEquals(ALUMN_DTO,findAll.get(0));
 	}
 	@Test
 	public void testNullParametersFindAll() throws Exception {
@@ -100,7 +100,7 @@ public class TestAlumnService {
 		final List<AlumnDTO> findAll = alumnService.findAll(null, null);
 
 		Assert.assertEquals(findAll.size(), 1);
-		assertEquals(findAll.get(0), ALUMN_DTO);
+		assertEquals(ALUMN_DTO, findAll.get(0));
 	}
 	@Test
 	public void testEmtpyFindAll() throws Exception {
@@ -108,7 +108,7 @@ public class TestAlumnService {
 				.thenReturn(new PageImpl<Alumn>(new ArrayList<>()));
 		final List<AlumnDTO> findAll = alumnService.findAll(Constants.DEFAULT_PAGE, Constants.DEFAULT_SIZE);
 
-		Assert.assertEquals(findAll.size(), 0);
+		Assert.assertEquals(0, findAll.size());
 	}
 	
 //	findById
@@ -117,7 +117,7 @@ public class TestAlumnService {
 		Mockito.when(alumnDAO.findOne(ID)).thenReturn(ALUMN);
 		AlumnDTO a = alumnService.findById(ID);
 		
-		assertEquals(a, ALUMN_DTO);
+		assertEquals(ALUMN_DTO, a);
 	}
 	@Test(expected = NotFoundException.class)
 	public void testNotFoundExceptionFindById() throws Exception {
@@ -132,8 +132,8 @@ public class TestAlumnService {
 		
 		final List<AlumnDTO> finByDate = alumnService.findByDate(BIRTHDATE);
 
-		Assert.assertEquals(finByDate.size(), 1);
-		assertEquals(finByDate.get(0), ALUMN_DTO);
+		Assert.assertEquals(1, finByDate.size());
+		assertEquals(ALUMN_DTO, finByDate.get(0));
 	}
 	@Test
 	public void testEmtpyListFindByDate() throws Exception {
@@ -141,7 +141,7 @@ public class TestAlumnService {
 		
 		final List<AlumnDTO> finByDate = alumnService.findByDate(BIRTHDATE);
 		
-		Assert.assertEquals(finByDate.size(), 0);
+		Assert.assertEquals(0, finByDate.size());
 	}
 
 //	create
@@ -158,7 +158,7 @@ public class TestAlumnService {
 		
 		AlumnDTO a = alumnService.create(ALUMN_DTO);
 		
-		assertEquals(a, ALUMN_DTO);
+		assertEquals(ALUMN_DTO, a);
 	}
 	
 //	update

@@ -41,7 +41,7 @@ public class TestAlumnController {
 
 	private static final String BIRTHPLACE = "Cadiz";
 
-	private AlumnDTO alumnDTO = new AlumnDTO();
+	private AlumnDTO ALUMN_DTO = new AlumnDTO();
 	
 	@InjectMocks
 	private AlumnController alumnController = new AlumnController();
@@ -52,10 +52,10 @@ public class TestAlumnController {
 	MockMvc mockMvc;
 	@Before
 	public void setUp() {
-		alumnDTO.setAlumnEmail(EMAIL);
-		alumnDTO.setAlumnName(NAME);
-		alumnDTO.setBirthDate(BIRTHDATE);
-		alumnDTO.setBirthPlace(BIRTHPLACE);
+		ALUMN_DTO.setAlumnEmail(EMAIL);
+		ALUMN_DTO.setAlumnName(NAME);
+		ALUMN_DTO.setBirthDate(BIRTHDATE);
+		ALUMN_DTO.setBirthPlace(BIRTHPLACE);
 		
 		mockMvc = MockMvcBuilders
 				.standaloneSetup(alumnController)
@@ -66,23 +66,23 @@ public class TestAlumnController {
 	//findAll
 	@Test
 	public void testBaseFindAll() throws Exception {
-		Mockito.when(alumnService.findAll(Constants.DEFAULT_PAGE, Constants.DEFAULT_SIZE)).thenReturn(Arrays.asList(alumnDTO));
+		Mockito.when(alumnService.findAll(Constants.DEFAULT_PAGE, Constants.DEFAULT_SIZE)).thenReturn(Arrays.asList(ALUMN_DTO));
 		final List<AlumnDTO> findAll = alumnController.findAll(Constants.DEFAULT_PAGE, Constants.DEFAULT_SIZE);
 		
 		mockMvc.perform(get("/alumn"));
 
 		Assert.assertEquals(findAll.size(), 1);
-		assertEquals(findAll.get(0), alumnDTO);
+		assertEquals(ALUMN_DTO, findAll.get(0));
 	}
 	@Test
 	public void testNullParametersFindAll() throws Exception {
-		Mockito.when(alumnService.findAll(null, null)).thenReturn(Arrays.asList(alumnDTO));
+		Mockito.when(alumnService.findAll(null, null)).thenReturn(Arrays.asList(ALUMN_DTO));
 		final List<AlumnDTO> findAll = alumnController.findAll(null, null);
 
 		mockMvc.perform(get("/alumn"));
 
 		Assert.assertEquals(findAll.size(), 1);
-		assertEquals(findAll.get(0), alumnDTO);
+		assertEquals(ALUMN_DTO, findAll.get(0));
 	}
 	
 	@Test
@@ -92,19 +92,19 @@ public class TestAlumnController {
 		
 		mockMvc.perform(get("/alumn"));
 
-		Assert.assertEquals(findAll.size(), 0);
+		Assert.assertEquals(0, findAll.size());
 	}
 	
 
 	//findById
 	@Test
 	public void testBaseFindById() throws Exception {
-		Mockito.when(alumnService.findById(ID)).thenReturn(alumnDTO);
+		Mockito.when(alumnService.findById(ID)).thenReturn(ALUMN_DTO);
 		
 		mockMvc.perform(get("/alumn/"+ID));
 		
 		AlumnDTO a = alumnController.findById(ID);
-		assertEquals(a, alumnDTO);
+		assertEquals(ALUMN_DTO, a);
 	}
 	@Test(expected = NotFoundException.class)
 	public void testNotFoundExceptionFindById() throws NotFoundException{
@@ -115,7 +115,7 @@ public class TestAlumnController {
 	//findByDate
 	@Test
 	public void testBaseFindByDate() throws Exception {
-		Mockito.when(alumnService.findByDate(BIRTHDATE)).thenReturn(Arrays.asList(alumnDTO));
+		Mockito.when(alumnService.findByDate(BIRTHDATE)).thenReturn(Arrays.asList(ALUMN_DTO));
 		
 		final List<AlumnDTO> finByDate = alumnController.findByDate(BIRTHDATE);
 		
@@ -123,7 +123,7 @@ public class TestAlumnController {
 		mockMvc.perform(get("/alumn/date/"+sdf.format(BIRTHDATE)));
 
 		Assert.assertEquals(finByDate.size(), 1);
-		assertEquals(finByDate.get(0), alumnDTO);
+		assertEquals(ALUMN_DTO, finByDate.get(0));
 	}
 	@Test
 	public void testEmtpyListFindByDate() throws Exception {
@@ -134,30 +134,30 @@ public class TestAlumnController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");    
 		mockMvc.perform(get("/alumn/date/"+sdf.format(BIRTHDATE)));
 
-		Assert.assertEquals(finByDate.size(), 0);
+		Assert.assertEquals(0, finByDate.size());
 	}
 	
 	//create
 	@Test
 	public void testBaseCreate() throws Exception {
-		Mockito.when(alumnService.create(alumnDTO)).thenReturn(alumnDTO);
+		Mockito.when(alumnService.create(ALUMN_DTO)).thenReturn(ALUMN_DTO);
 		
-		AlumnDTO a = alumnController.create(alumnDTO);
+		AlumnDTO a = alumnController.create(ALUMN_DTO);
 		
 		mockMvc.perform(post("/alumn")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(createJson(NAME, EMAIL, BIRTHDATE, BIRTHPLACE))
 				);
 		
-		assertEquals(a, alumnDTO);
+		assertEquals(ALUMN_DTO, a);
 	}
 	
 	//update
 	@Test
 	public void testBaseUpdate() throws Exception {
-		Mockito.doNothing().when(alumnService).update(ID,alumnDTO);
+		Mockito.doNothing().when(alumnService).update(ID,ALUMN_DTO);
 		
-		alumnController.update(ID, alumnDTO);
+		alumnController.update(ID, ALUMN_DTO);
 		
 		mockMvc.perform(put("/alumn/"+ID)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -167,9 +167,9 @@ public class TestAlumnController {
 	
 	@Test(expected = NotFoundException.class)
 	public void testNotFoundExceptionUpdate() throws Exception {
-		Mockito.doThrow(NotFoundException.class).when(alumnService).update(ID,alumnDTO);
+		Mockito.doThrow(NotFoundException.class).when(alumnService).update(ID,ALUMN_DTO);
 		
-		alumnController.update(ID, alumnDTO);
+		alumnController.update(ID, ALUMN_DTO);
 		
 		mockMvc.perform(put("/alumn/"+ID)
 				.contentType(MediaType.APPLICATION_JSON)
